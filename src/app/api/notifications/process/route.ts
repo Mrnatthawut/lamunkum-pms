@@ -1,0 +1,3 @@
+import{NextResponse}from"next/server";import{requireDormitoryContext}from"@/lib/auth/context";import{AnnouncementService}from"@/services/announcement-service";
+async function authorized(request:Request){const cron=process.env.CRON_SECRET;if(cron&&request.headers.get("authorization")===`Bearer ${cron}`)return true;try{await requireDormitoryContext("announcements.send");return true;}catch{return false;}}
+async function run(request:Request){if(!await authorized(request))return NextResponse.json({code:"UNAUTHORIZED"},{status:401});const result=await AnnouncementService.processDue();return NextResponse.json(result,{headers:{"Cache-Control":"no-store"}});}export const GET=run;export const POST=run;

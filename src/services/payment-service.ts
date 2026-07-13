@@ -1,0 +1,6 @@
+import type{SupabaseClient}from"@supabase/supabase-js";
+export class PaymentService{constructor(private readonly db:SupabaseClient){}
+  async submit(input:{invoiceId:string;paidAt:string;amount:string;method:string;bankName:string;referenceNumber:string;payerNote:string;idempotencyKey:string;proof:{path:string;mime:string;size:number;sha256:string}|null}){const{data,error}=await this.db.rpc("submit_payment",{target_invoice_id:input.invoiceId,target_paid_at:input.paidAt,target_amount:input.amount,target_method:input.method,target_bank_name:input.bankName,target_reference_number:input.referenceNumber,target_payer_note:input.payerNote,target_idempotency_key:input.idempotencyKey,target_proof_path:input.proof?.path??null,target_proof_mime:input.proof?.mime??null,target_proof_size:input.proof?.size??null,target_proof_sha256:input.proof?.sha256??null});if(error)throw error;return data as string;}
+  async approve(id:string){const{data,error}=await this.db.rpc("approve_payment",{target_payment_id:id});if(error)throw error;return data as{payment_number:string;receipt_id:string;receipt_number:string;verification_token:string};}
+  async reject(id:string,reason:string){const{data,error}=await this.db.rpc("reject_payment",{target_payment_id:id,target_reason:reason});if(error)throw error;return data as string;}
+}

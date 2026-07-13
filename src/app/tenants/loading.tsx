@@ -1,0 +1,1 @@
+export default function TenantsLoading(){return <div className="p-8"><div className="h-8 w-56 animate-pulse rounded bg-slate-200"/><div className="mt-6 grid gap-5 xl:grid-cols-[430px_1fr]"><div className="h-[680px] animate-pulse rounded-xl bg-slate-200"/><div className="h-96 animate-pulse rounded-xl bg-slate-200"/></div></div>;}

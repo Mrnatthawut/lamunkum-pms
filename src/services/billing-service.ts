@@ -1,0 +1,9 @@
+import type{SupabaseClient}from"@supabase/supabase-js";
+interface Scope{dormitoryId:string}
+export class BillingService{constructor(private readonly db:SupabaseClient,private readonly scope:Scope){}
+  async createCycle(input:{billingMonth:string;periodStart:string;periodEnd:string;issueDate:string;dueDate:string;notes:string}){const{data,error}=await this.db.rpc("create_billing_cycle",{target_dormitory_id:this.scope.dormitoryId,target_billing_month:input.billingMonth,target_period_start:input.periodStart,target_period_end:input.periodEnd,target_issue_date:input.issueDate,target_due_date:input.dueDate,target_notes:input.notes});if(error)throw error;return data as string;}
+  async createCharge(input:{code:string;name:string;chargeType:string;defaultAmount:string;taxRate:string}){const{data,error}=await this.db.rpc("create_service_charge_type",{target_dormitory_id:this.scope.dormitoryId,target_code:input.code,target_name:input.name,target_charge_type:input.chargeType,target_default_amount:input.defaultAmount,target_tax_rate:input.taxRate});if(error)throw error;return data as string;}
+  async assignCharge(input:{contractId:string;serviceChargeTypeId:string;amount:string;effectiveFrom:string;effectiveTo:string}){const{data,error}=await this.db.rpc("assign_contract_service_charge",{target_contract_id:input.contractId,target_service_charge_type_id:input.serviceChargeTypeId,target_amount:input.amount||null,target_effective_from:input.effectiveFrom,target_effective_to:input.effectiveTo||null});if(error)throw error;return data as string;}
+  async generate(cycleId:string){const{data,error}=await this.db.rpc("generate_billing_cycle_invoices",{target_billing_cycle_id:cycleId});if(error)throw error;return data as{generated:number;skipped:number};}
+  async approve(invoiceId:string){const{data,error}=await this.db.rpc("approve_invoice",{target_invoice_id:invoiceId});if(error)throw error;return data as string;}
+}

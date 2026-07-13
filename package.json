@@ -1,0 +1,63 @@
+{
+  "name": "dormitory-management-system",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": ">=20.9.0"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "dev:local": "bash scripts/with-local-supabase.sh next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:integration:local": "bash scripts/with-local-supabase.sh env RUN_LOCAL_INTEGRATION=1 vitest run tests/integration --no-file-parallelism",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test"
+  },
+  "dependencies": {
+    "@fontsource/noto-sans-thai": "^5.2.8",
+    "@hookform/resolvers": "latest",
+    "@line/liff": "^2.29.1",
+    "@pdf-lib/fontkit": "^1.1.1",
+    "@supabase/ssr": "latest",
+    "@supabase/supabase-js": "latest",
+    "@tanstack/react-table": "latest",
+    "class-variance-authority": "latest",
+    "clsx": "latest",
+    "date-fns": "latest",
+    "decimal.js": "latest",
+    "lucide-react": "latest",
+    "next": "latest",
+    "pdf-lib": "^1.17.1",
+    "react": "latest",
+    "react-dom": "latest",
+    "react-hook-form": "latest",
+    "recharts": "latest",
+    "server-only": "^0.0.1",
+    "tailwind-merge": "latest",
+    "zod": "latest"
+  },
+  "devDependencies": {
+    "@playwright/test": "latest",
+    "@tailwindcss/postcss": "latest",
+    "@testing-library/jest-dom": "latest",
+    "@testing-library/react": "latest",
+    "@types/node": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "eslint": "latest",
+    "eslint-config-next": "latest",
+    "jsdom": "latest",
+    "prettier": "latest",
+    "supabase": "^2.109.1",
+    "tailwindcss": "latest",
+    "typescript": "latest",
+    "vitest": "latest"
+  },
+  "overrides": {
+    "postcss": "8.5.18"
+  }
+}

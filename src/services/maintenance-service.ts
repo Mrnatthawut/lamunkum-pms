@@ -1,0 +1,7 @@
+import type { SupabaseClient } from "@supabase/supabase-js";
+export type TicketUpdateResult={ticket_id:string;ticket_number:string;tenant_id:string|null;status:string;version:number};
+export class MaintenanceService{constructor(private readonly db:SupabaseClient){}
+ async create(input:{roomId:string;category:string;title:string;description:string;urgency:string;preferredAt:string}){const{data,error}=await this.db.rpc("create_maintenance_ticket",{target_room_id:input.roomId,target_category:input.category,target_title:input.title,target_description:input.description,target_urgency:input.urgency,target_preferred_at:input.preferredAt||null});if(error)throw error;return data as string;}
+ async update(input:{ticketId:string;status:string;assignedTo:string;cost:string;costResponsibility:string;note:string}){const{data,error}=await this.db.rpc("update_maintenance_ticket",{target_ticket_id:input.ticketId,target_status:input.status,target_assigned_to:input.assignedTo||null,target_cost:input.cost,target_cost_responsibility:input.costResponsibility,target_note:input.note});if(error)throw error;return data as TicketUpdateResult;}
+ async comment(input:{ticketId:string;body:string;internal:boolean}){const{data,error}=await this.db.rpc("add_maintenance_comment",{target_ticket_id:input.ticketId,target_body:input.body,target_internal:input.internal});if(error)throw error;return data as string;}
+}

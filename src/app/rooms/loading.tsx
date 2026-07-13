@@ -1,0 +1,1 @@
+export default function RoomsLoading() { return <div className="p-8"><div className="h-8 w-64 animate-pulse rounded bg-slate-200"/><div className="mt-6 grid gap-4 xl:grid-cols-3">{[1,2,3].map(item=><div key={item} className="h-96 animate-pulse rounded-xl bg-slate-200"/>)}</div></div>; }
