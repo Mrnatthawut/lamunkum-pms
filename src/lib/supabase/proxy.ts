@@ -19,7 +19,7 @@ export async function updateSession(request: NextRequest) {
   });
 
   const { data: { user } } = await supabase.auth.getUser();
-  const publicPath = request.nextUrl.pathname === "/login" || request.nextUrl.pathname.startsWith("/auth/") || request.nextUrl.pathname.startsWith("/verify/receipt/") || request.nextUrl.pathname === "/line/link" || request.nextUrl.pathname === "/api/line/link/confirm";
+  const publicPath = request.nextUrl.pathname === "/login" || request.nextUrl.pathname.startsWith("/auth/") || request.nextUrl.pathname.startsWith("/verify/receipt/") || request.nextUrl.pathname.startsWith("/line/link") || request.nextUrl.pathname === "/api/line/link/confirm";
   if (!user && !publicPath) return NextResponse.redirect(new URL("/login", request.url));
   if (user && request.nextUrl.pathname === "/login") return NextResponse.redirect(new URL("/", request.url));
   return response;
